@@ -98,11 +98,15 @@ def get_dnd():
     return sh(["dunstctl", "is-paused"]) == "true"
 
 
-def get_night():
-    """Night light is on when hyprsunset's temperature differs from the neutral 6000 K (schedule or manual)."""
-    t = sh(["hyprctl", "hyprsunset", "temperature"])
-    return t.isdigit() and int(t) != 6000
+def get_warp_status():
+    return sh(["warp-cli", "status"])
 
+def toggle_warp():
+    status = sh(["warp-cli", "status"])
+    if "Disconnected" in status:
+        fire(["warp-cli", "connect"])
+    else:
+        fire(["warp-cli", "disconnect"])
 
 def get_sounds():
     return not os.path.exists(STATE + "/gits-sounds/off")
@@ -433,13 +437,13 @@ class Panel(Popup):
         wifi = Tile("󰖩", "WI-FI", get_wifi, lambda: fire(["nmcli", "radio", "wifi", "off" if get_wifi() else "on"]))
         bt = Tile("󰂯", "BLUETOOTH", get_bt, lambda: fire(["bluetoothctl", "power", "off" if get_bt() else "on"]))
         dnd = Tile("󰂛", "SILENT", get_dnd, lambda: fire(["dunstctl", "set-paused", "toggle"]))
-        night = Tile("󰖔", "NIGHT", get_night, lambda: fire(["gits-daynight", "toggle"]))
+        cloudflare= Tile("", "CLOUDFLARE", get_warp_status, lambda: fire(["toggle-warp"]))
         snd = Tile("󰝚", "SOUNDS", get_sounds, lambda: fire(["gits-sound", "toggle"]))
         wid = Tile("󰕮", "WIDGETS", get_widgets, lambda: fire([HERE + "/run.sh", "toggle"]))
         awake = Tile("󰅶", "AWAKE", get_awake, set_awake)
         plane = Tile("󰀝", "AIRPLANE", get_airplane, lambda: fire(["rfkill", "unblock" if get_airplane() else "block", "all"]))
         game = Tile("󰊗", "GAME", get_game, lambda: fire(["gits-workflow", "toggle", "gaming"]))
-        self.tiles = [wifi, bt, dnd, night, snd, wid, awake, plane, game]
+        self.tiles = [wifi, bt, dnd, cloudflare, snd, wid, awake, plane, game]
         pad = Tile("󰍽", "TOUCHPAD", get_touchpad, lambda: fire(["gits-touchpad", "toggle"]))
         glitch = Tile("󰘨", "GLITCH", get_glitch, set_glitch)
         rec = Tile("󰑋", "REC", lambda: sh(["gits-rec", "status"]) == "on", lambda: self._later("gits-rec toggle area"))
@@ -618,7 +622,7 @@ class Panel(Popup):
     def _load(self):
         st = {t.name: t.getter() for t in self.tiles}
         if DEMO:
-            st = {"WI-FI": True, "BLUETOOTH": True, "SILENT": False, "NIGHT": False, "SOUNDS": True, "WIDGETS": True}
+            st = {"WI-FI": True, "BLUETOOTH": True, "SILENT": False, "CLOUDFLARE": False, "SOUNDS": True, "WIDGETS": True}
             vol, bri, prof, lim, kbd = (46, False), 82, "balanced", 80, (2, 3)
             st.update({"AWAKE": False, "AIRPLANE": False, "GAME": False, "TOUCHPAD": True, "GLITCH": True, "REC": False, "FOCUS": False})
         else:

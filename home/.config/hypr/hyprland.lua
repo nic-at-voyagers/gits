@@ -17,3 +17,6 @@ for _, m in ipairs(modules) do
     if not ok and out then out:write("gits.", m, ": ", tostring(err), "\n\n") end
 end
 if out then out:close() end
+
+-- hyprmon: managed monitor profile include
+require("hyprmon")

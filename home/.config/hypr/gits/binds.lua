@@ -56,33 +56,44 @@ local function pip_to_next_monitor()
 end
 
 -- ---------------------------------------------------------------- apps
-bind(MOD .. " + T", run("kitty"), "[Launcher|Apps] terminal emulator")
+bind(MOD .. " + Q", run("kitty"), "[Launcher|Apps] terminal emulator")
 bind(MOD .. " + ALT + T", run("gits-dropdown"), "[Launcher|Apps] dropdown terminal")
 bind(MOD .. " + ALT + Y", toggle_pip, "[Launcher|Apps] picture-in-picture video from the browser (again: close it)")
 bind(MOD .. " + ALT + SHIFT + Y", pip_to_next_monitor, "[Launcher|Apps] picture-in-picture video to the next monitor")
 bind(MOD .. " + E", run("gits-open explorer"), "[Launcher|Apps] file explorer")
-bind(MOD .. " + B", run("gits-open browser"), "[Launcher|Apps] browser")
-bind(MOD .. " + C", run("gits-open editor"), "[Launcher|Apps] text editor")
+bind(MOD .. " + W", run("gits-open browser"), "[Launcher|Apps] browser")
+bind(MOD .. " + D", hl.dsp.exec_cmd("vesktop --ozone-platform=x11"), "[Launcher|Apps] vesktop")
 bind("CTRL + SHIFT + ESCAPE", run("gits-sysmon"), "[Launcher|Apps] system monitor")
 
 -- ---------------------------------------------------------------- windows
-bind(MOD .. " + Q", hl.dsp.window.close(), "[Window Management] close focused window")
+bind(MOD .. " + C", hl.dsp.window.close(), "[Window Management] close focused window")
 bind("ALT + F4", hl.dsp.window.close(), "[Window Management] close focused window")
 bind(MOD .. " + ALT + F4", hl.dsp.window.kill(), "[Window Management] kill focused window")
 bind(MOD .. " + Delete", run("gits-exit"), "[Window Management] exit hyprland session")
-bind(MOD .. " + W", hl.dsp.window.float({ action = "toggle" }), "[Window Management] toggle float")
+bind(MOD .. " + ALT + Space", hl.dsp.window.float({ action = "toggle" }), "[Window Management] toggle float")
 bind(MOD .. " + G", hl.dsp.group.toggle(), "[Window Management] toggle group")
 bind("ALT + P", hl.dsp.window.pseudo(), "[Window Management] pseudotiling")
 bind("SHIFT + F11", cycle_fullscreen, "[Window Management] cycle fullscreen")
 bind(MOD .. " + SHIFT + F", hl.dsp.window.pin(), "[Window Management] toggle pin")
 bind("CTRL + ALT + DELETE", run("gits-logout"), "[Window Management] logout menu")
 bind(MOD .. " + CTRL + B", run("pkill -SIGUSR1 -x waybar"), "[Window Management] hide / show the bar")
-bind(MOD .. " + L", run("loginctl lock-session"), "[Window Management] lock session")
+bind(MOD .. " + BracketLeft", run("loginctl lock-session"), "[Window Management] lock session")
 bind(MOD .. " + CTRL + H", hl.dsp.group.prev(), "[Window Management|Group Navigation] change active group backwards")
 bind(MOD .. " + CTRL + L", hl.dsp.group.next(), "[Window Management|Group Navigation] change active group forwards")
-for key, dir in pairs({ Left = "left", Right = "right", Up = "up", Down = "down" }) do
+
+-- focus (full-word directions, matching the rest of the config)
+for i = 1, 4 do
+    local key = ({ "H", "L", "K", "J" })[i]
+    local dir = ({ "left", "right", "up", "down" })[i]
     bind(MOD .. " + " .. key, hl.dsp.focus({ direction = dir }), "[Window Management|Change focus] focus " .. dir)
 end
+-- move
+for i = 1, 4 do
+    local key = ({ "H", "L", "K", "J" })[i]
+    local dir = ({ "left", "right", "up", "down" })[i]
+    bind(MOD .. " + SHIFT + " .. key, hl.dsp.window.move({ direction = dir }), "[Window Management] move " .. dir)
+end
+
 bind("ALT + TAB", function() hl.dispatch(hl.dsp.window.cycle_next({})); hl.dispatch(hl.dsp.window.bring_to_top({})) end, "[Window Management] cycle windows")
 bind("ALT + SHIFT + TAB", function() hl.dispatch(hl.dsp.window.cycle_next({ next = false })); hl.dispatch(hl.dsp.window.bring_to_top({})) end, "[Window Management] cycle windows backwards")
 local rs = { RIGHT = { 30, 0 }, LEFT = { -30, 0 }, UP = { 0, -30 }, DOWN = { 0, 30 } }
@@ -94,20 +105,18 @@ bind(MOD .. " + mouse:272", hl.dsp.window.drag(), "[Window Management|Drag & Res
 bind(MOD .. " + mouse:273", hl.dsp.window.resize(), "[Window Management|Drag & Resize with mouse] resize window", { mouse = true })
 bind(MOD .. " + Z", hl.dsp.window.drag(), "[Window Management|Drag & Resize with mouse] hold to move window", { mouse = true })
 bind(MOD .. " + X", hl.dsp.window.resize(), "[Window Management|Drag & Resize with mouse] hold to resize window", { mouse = true })
-bind(MOD .. " + J", run("gits-layout-toggle"), "[Layout Management] toggle split / rotate master (by layout)")
-bind(MOD .. " + SHIFT + L", run("gits-layout select"), "[Layout Management] select tiling layout")
 bind(MOD .. " + SHIFT + Y", run("gits-anim select"), "[Theming] select window animations")
 bind(MOD .. " + SHIFT + X", run("gits-workflow select"), "[Theming] select workflow (default / gaming / editing / powersaver / snappy)")
 bind(MOD .. " + ALT + G", run("gits-workflow toggle gaming"), "[Utilities] game mode", { locked = true })
 
 -- ---------------------------------------------------------------- launchers and menus (all GTK popups, see gits-panel)
-bind(MOD .. " + A", run("gits-panel launch"), "[Launcher] launcher / command palette")
+bind("SUPER + SUPER_L", run("gits-panel launch"), "[Launcher] launcher / command palette")
 bind(MOD .. " + TAB", run("gits-panel windows"), "[Launcher] window switcher")
 bind(MOD .. " + V", run("gits-panel clip"), "[Launcher] clipboard history")
 bind(MOD .. " + comma", run("gits-panel emoji"), "[Launcher] emoji picker")
 bind(MOD .. " + slash", run("gits-panel keys"), "[Launcher] key bindings")
 bind(MOD .. " + I", run("gits-settings"), "[GitS] all settings")
-bind(MOD .. " + SHIFT + C", run("gits-panel control"), "[GitS] control panel")
+bind(MOD .. " + B", run("gits-panel control"), "[GitS] control panel")
 bind(MOD .. " + SHIFT + M", run("gits-panel media"), "[GitS] player popup")
 bind(MOD .. " + ALT + V", run("gits-panel mixer"), "[GitS] sound mixer")
 bind(MOD .. " + SHIFT + N", run("gits-panel notify"), "[GitS] notification centre")
@@ -128,6 +137,7 @@ bind(MOD .. " + SHIFT + U", run("gits-sound toggle"), "[GitS] UI sounds on / off
 bind(MOD .. " + ALT + U", run("gits-update"), "[GitS] update the system")
 bind(MOD .. " + ALT + D", run("kitty --class gits-doctor --hold gits-doctor"), "[GitS] health report (gits-doctor)")
 bind(MOD .. " + SHIFT + B", run("gits-session restart"), "[GitS] restart bar, notifications and the other session services")
+
 
 -- ---------------------------------------------------------------- hardware keys
 bind("F10", run("gits-vol mute"), "[Hardware Controls|Audio] un/mute output", { locked = true })

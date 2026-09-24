@@ -18,6 +18,8 @@ env("GDK_SCALE", "1")
 env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 env("XCURSOR_THEME", "GitS-Cursors")
 env("XCURSOR_SIZE", "22")
+env("XDG_MENU_PREFIX", "plasma-")
+env("GITS_WIDGETS_GLITCH", "0")
 -- plus the Flatpak launchers (com.spotify.Client, ...): the system ones are usually there already, the per-user ones (flatpak --user) are not
 local path = home .. "/.local/bin:" .. (os.getenv("PATH") or "/usr/local/bin:/usr/bin")
 for _, d in ipairs({ "/var/lib/flatpak/exports/bin", (os.getenv("XDG_DATA_HOME") or (home .. "/.local/share")) .. "/flatpak/exports/bin" }) do

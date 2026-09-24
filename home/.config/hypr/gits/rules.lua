@@ -4,7 +4,7 @@ local function rx(list) return "^(" .. table.concat(list, "|") .. ")$" end
 local floating_class = rx({
     "Bitwarden", "org.keepassxc.KeePassXC", "hyprland-share-picker", "blueman-manager", "pavucontrol-qt", "com\\.gabm\\.satty", "vlc",
     "kvantummanager", "qt6ct", "qt[56]ct", "nwg-(look|displays)", "org\\.kde\\.ark", "org\\.pulseaudio\\.pavucontrol",
-    "nm-(applet|connection-editor)", "hyprpolkitagent", "console-dropdown", "gits-sysmon", "org\\.kde\\.dolphin", ".*dialog.*",
+    "nm-(applet|connection-editor)", "hyprpolkitagent", "console-dropdown", "gits-sysmon", ".*dialog.*",
     "[Xx]dg-desktop-portal-gtk", "org\\.freedesktop\\.impl\\.portal\\.desktop\\.(hyprland|gtk)",
     "org\\.opengamingcollective\\.rog-control-center",
 })
@@ -15,12 +15,6 @@ local floating_title = rx({
 })
 local pip_title = "^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture(.*))$"
 
-hl.window_rule({
-    name = "gits_filemanagers",
-    match = { class = "^(.*dolphin.*)$|^(.*pcmanfm-qt.*)$|^(.*nemo.*)$|^(.*ark.*)$|.*Nautilus.*" },
-    opaque = true,
-    float = false,
-})
 hl.window_rule({ name = "gits_floating_class", tag = "+gits_floating", match = { class = floating_class }, float = true })
 hl.window_rule({ name = "gits_floating_title", tag = "+gits_floating", match = { title = floating_title }, float = true })
 -- picture-in-picture video (Super+Alt+Y): 16:9 whatever the screen shape, bottom-right corner, on every workspace, never steals focus
