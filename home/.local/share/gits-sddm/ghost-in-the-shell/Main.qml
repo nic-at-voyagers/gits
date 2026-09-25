@@ -141,7 +141,7 @@ Rectangle {
             x: 92; y: userField.y + 56
             width: 330; height: 46
             echoMode: TextInput.Password
-            passwordCharacter: "■"
+            passwordCharacter: "•"
             placeholderText: "▮ ENTER PASSPHRASE"
             color: root.cyan
             placeholderTextColor: root.cyanDim
