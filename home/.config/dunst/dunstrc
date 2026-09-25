@@ -36,7 +36,7 @@
     stack_duplicates = true
     hide_duplicate_count = false
     show_indicators = yes
-    font = JetBrainsMono Nerd Font 8
+    font = JetBrainsMono Nerd Font 12
     icon_theme = "GitS-Icons,Tela-circle-grey"
     enable_recursive_icon_lookup = true
     icon_position = left
@@ -47,7 +47,7 @@
     always_run_script = true
     enable_posix_regex = true
     browser = /usr/bin/xdg-open
-    dmenu = @HOME@/.config/dunst/gits-notify-menu.sh
+    dmenu = /home/nic/.config/dunst/gits-notify-menu.sh
     title = Dunst
     class = Dunst
     scale = 0

@@ -2,7 +2,7 @@
 {
     "layer": "top",
     "output": ["*"],
-    "height": 24,
+    "height": 30,
     "exclusive": true,
     "passthrough": false,
     "reload_style_on_change": true,
@@ -46,7 +46,7 @@
     ],
 
     "tray": {
-        "icon-size": 16,
+        "icon-size": 18,
         "spacing": 8,
         // apps that send a picture instead of an icon name get the cyan GitS-Icons glyph (the SNI Id is the key)
         "icons": {

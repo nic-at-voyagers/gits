@@ -61,7 +61,7 @@ bind(MOD .. " + ALT + T", run("gits-dropdown"), "[Launcher|Apps] dropdown termin
 bind(MOD .. " + ALT + Y", toggle_pip, "[Launcher|Apps] picture-in-picture video from the browser (again: close it)")
 bind(MOD .. " + ALT + SHIFT + Y", pip_to_next_monitor, "[Launcher|Apps] picture-in-picture video to the next monitor")
 bind(MOD .. " + E", run("gits-open explorer"), "[Launcher|Apps] file explorer")
-bind(MOD .. " + W", run("gits-open browser"), "[Launcher|Apps] browser")
+bind(MOD .. " + W", hl.dsp.exec_cmd("zen-browser"), "[Launcher|Apps] Zen Browser")
 bind(MOD .. " + D", hl.dsp.exec_cmd("vesktop --ozone-platform=x11"), "[Launcher|Apps] vesktop")
 bind("CTRL + SHIFT + ESCAPE", run("gits-sysmon"), "[Launcher|Apps] system monitor")
 

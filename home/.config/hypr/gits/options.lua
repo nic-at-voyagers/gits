@@ -38,7 +38,8 @@ hl.config({
 	xwayland = { force_zero_scaling = true },
 	general = {
 		snap = { border_overlap = true, enabled = true, monitor_gap = 1, respect_gaps = true, window_gap = 1 },
-		border_size = 3,
+        no_focus_fallback = true,
+		border_size = 4,
 		gaps_in = "3",
 		gaps_out = "15",
 		gaps_workspaces = 50,

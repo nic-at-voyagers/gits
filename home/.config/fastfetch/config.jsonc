@@ -1,29 +1,91 @@
-// Ghost in the Shell: plain `fastfetch` looks like the terminal banner (same art, same frame).
-// Art: ~/.config/zsh/gits/art.png
 {
-  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
-  "logo": {
-    "source": "~/.config/zsh/gits/art.png",
-    "type": "kitty-direct",
-    "height": 20,
-    "width": 32,
-    "padding": { "right": 3 }
-  },
-  "display": { "separator": " │ ", "color": { "keys": "blue", "separator": "blue" }, "key": { "width": 7 } },
-  "modules": [
-    { "type": "custom", "format": "\u001b[34m┌─[ \u001b[94mSECTION 9 // NAVI-00\u001b[34m ]" },
-    { "type": "custom", "format": "\u001b[34m│" },
-    { "type": "os", "key": "OS" },
-    { "type": "kernel", "key": "KERNEL" },
-    { "type": "uptime", "key": "UPTIME" },
-    { "type": "packages", "key": "PKGS", "format": "{pacman}" },
-    { "type": "shell", "key": "SHELL" },
-    { "type": "terminal", "key": "TERM" },
-    { "type": "wm", "key": "WM" },
-    { "type": "cpu", "key": "CPU", "format": "{cores-logical} threads @ {freq-max}" },
-    { "type": "gpu", "key": "GPU" },
-    { "type": "memory", "key": "MEMORY" },
-    { "type": "disk", "key": "DISK" },
-    { "type": "custom", "format": "\u001b[34m└──────────────────────" }
-  ]
+
+      "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+      "logo": {
+            "type": "kitty",        // Logo type: auto, builtin, small, file, etc.
+            "source": "/home/nic/Downloads/beheelits.png"      // Built-in logo name or file path
+      },
+      "display": {
+            "separator": " "
+      },
+      "general": {
+      },
+      "modules": [
+            {
+                  "type": "title",
+                  "color": {
+                        "user": "white",
+                        "at": "cyan",
+                        "host": "white"
+                  }
+            },
+            {
+                  "type": "custom",
+                  "format": "{#cyan}────────────────────────────────────────"
+            },
+            {
+                  "type": "os",
+                  "key": "     ",
+                  "keyColor": "cyan"  // = color4
+            },
+            {
+                  "type": "kernel",
+                  "key": "     ",
+                  "keyColor": "cyan"
+            },
+            {
+                  "type": "packages",
+                  "disabled": ["flatpak"],
+                  "key": "     ",
+                  "keyColor": "cyan"
+            },
+            {
+                  "type": "terminal",
+                  "key": "     ",
+                  "keyColor": "cyan"
+            },
+            {
+                  "type": "shell",
+                  "key": "     ",
+                  "keyColor": "cyan"
+            },
+            {
+                  "type": "wm",
+                  "key": "     ",
+                  "keyColor": "cyan"
+            },
+            {
+                  "type": "cpu",
+                  "format": "{1}",
+                  "key": "     ",
+                  "keyColor": "cyan"
+            },
+            {
+                  "type": "gpu",
+                  "format": "{2}",
+                  "key": "     ",
+                  "keyColor": "cyan"
+            },
+            {
+                  "type": "memory",
+                  "key": "﬙     ",
+                  "keyColor": "cyan"
+            },
+            {
+                  "type": "uptime",
+                  "key": "     ",
+                  "keyColor": "cyan"
+            },
+            {
+                  "type": "command",
+                  "key": "󱦟     ",
+                  "keyColor": "cyan",
+                  "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days"
+            },
+            "break",
+            "colors",
+            "break",
+            "break"
+      ]
 }
+

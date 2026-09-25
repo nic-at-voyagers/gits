@@ -98,15 +98,9 @@ def get_dnd():
     return sh(["dunstctl", "is-paused"]) == "true"
 
 
-def get_warp_status():
-    return sh(["warp-cli", "status"])
-
-def toggle_warp():
-    status = sh(["warp-cli", "status"])
-    if "Disconnected" in status:
-        fire(["warp-cli", "connect"])
-    else:
-        fire(["warp-cli", "disconnect"])
+def get_warp_status():  
+    s = sh(["warp-cli", "status"])  
+    return "Connected" in s and "Disconnected" not in s
 
 def get_sounds():
     return not os.path.exists(STATE + "/gits-sounds/off")
