@@ -162,33 +162,6 @@ miss=()
 for f in "${need[@]}"; do [[ -e $H/$f ]] || miss+=("$f"); done
 [[ ${#miss[@]} -eq 0 ]] && ok "${#need[@]} theme files present" || bad "missing: ${miss[*]}"
 
-# ---------------------------------------------------------------- boot chain
-head_ "boot chain (SDDM / GRUB / Plymouth)"
-sd=/usr/share/sddm/themes/ghost-in-the-shell
-if [[ -d $sd ]] && diff -rq "$H/.local/share/gits-sddm/ghost-in-the-shell" "$sd" >/dev/null 2>&1; then ok "SDDM theme installed and identical to staging"
-elif [[ -d $sd ]]; then warn "SDDM theme installed but differs from ~/.local/share/gits-sddm (needs sudo cp)"
-else bad "SDDM theme not installed"; fi
-grep -rqs '^Current=ghost-in-the-shell' /etc/sddm.conf.d/ && ok "SDDM Current=ghost-in-the-shell" || warn "SDDM does not select the GitS theme"
-
-gt=/usr/share/grub/themes/ghost-in-the-shell/theme.txt
-if [[ -f $gt ]]; then
-    if grep -qE '=\s*[0-9]+\.[0-9]+' "$gt"; then bad "GRUB theme.txt has decimals (grub_strtoull error at boot)"
-    elif diff -q "$H/.local/share/gits-boot/staging/grub/ghost-in-the-shell/theme.txt" "$gt" >/dev/null 2>&1; then ok "GRUB theme installed, integers only, matches staging"
-    else warn "GRUB theme differs from staging"; fi
-else bad "GRUB theme missing"; fi
-if [[ $(findmnt -T /boot/grub -no FSTYPE 2>/dev/null) == btrfs ]] && grep -qE '^GRUB_SAVEDEFAULT=true' /etc/default/grub 2>/dev/null; then
-    warn "GRUB_SAVEDEFAULT=true on btrfs: GRUB prints 'sparse file not allowed / Press any key' every boot (sudo ~/.local/share/gits-boot/fix-grub-savedefault.sh)"
-else ok "GRUB savedefault is not fighting btrfs"; fi
-grep -q '^GRUB_THEME=.*ghost-in-the-shell' /etc/default/grub 2>/dev/null && ok "GRUB_THEME set" || warn "GRUB_THEME not set to the GitS theme"
-
-grep -qE '^Theme=ghost-in-the-shell' /etc/plymouth/plymouthd.conf 2>/dev/null && ok "Plymouth theme: ghost-in-the-shell" || warn "Plymouth theme is not GitS"
-grep -q '\bsplash\b' /proc/cmdline && ok "kernel cmdline has splash" || warn "no splash on the kernel cmdline"
-if [[ -f /etc/mkinitcpio.conf ]]; then
-    grep -qE '^HOOKS=.*plymouth' /etc/mkinitcpio.conf && ok "mkinitcpio has the plymouth hook" || warn "plymouth hook missing in mkinitcpio.conf"
-elif command -v dracut >/dev/null; then
-    grep -rqsE '^add_dracutmodules\+?=.*plymouth' /etc/dracut.conf /etc/dracut.conf.d/ && ok "dracut adds the plymouth module" || warn "dracut does not add the plymouth module (install.sh --system)"
-fi
-
 # ---------------------------------------------------------------- apps
 head_ "apps"
 zp=

@@ -13,7 +13,7 @@ default=$HOME/.local/share/gits/wallpapers/gits_smoke.png
 state=${XDG_STATE_HOME:-$HOME/.local/state}/gits/wallpaper
 IFS=: read -ra dirs <<<"$HOME/.local/share/gits/wallpapers:$HOME/Pictures/wallpapers:${GITS_WALL_DIRS:-}"
 
-list() { for d in "${dirs[@]}"; do [[ -d $d ]] && find "$d" -maxdepth 2 -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.webp' -o -iname '*.gif' \) -print; done | sort -u; }
+list() { for d in "${dirs[@]}"; do [[ -d $d ]] && find "$d" -maxdepth 2 -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.webp' -o -iname '*.gif' -o -iname '*.avif' \) -print; done | sort -u; }
 
 apply() {  # apply FILE [transition]
     [[ -r $1 ]] || { echo "no wallpaper at $1" >&2; return 1; }
