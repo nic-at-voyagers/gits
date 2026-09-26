@@ -37,7 +37,7 @@ hl.animation({leaf = "layersOut", enabled = true, speed = prod(1.8), bezier = "g
 hl.animation({leaf = "fadeLayersIn", enabled = true, speed = prod(2), bezier = "gits_scan"})
 hl.animation({leaf = "fadeLayersOut", enabled = true, speed = prod(1.5), bezier = "gits_delete"})
 -- workspaces: fast jump-cut with a bit of fade, not a lazy slide
-hl.animation({leaf = "workspaces", enabled = true, speed = prod(5), bezier = "menu_decel", style = "slide"})
+hl.animation({leaf = "workspaces", enabled = true, speed = prod(3), bezier = "gits_lock", style = "slidefade 22%"})
 hl.animation({leaf = "specialWorkspace", enabled = true, speed = prod(3), bezier = "gits_zap", style = "slidefadevert 12%"})
 -- border colour changes on focus like a scan line; the neon "runner" gradient below is opt-in
 hl.animation({leaf = "border", enabled = true, speed = prod(6), bezier = "gits_scan"})

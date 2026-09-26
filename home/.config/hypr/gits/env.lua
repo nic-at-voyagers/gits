@@ -18,7 +18,7 @@ env("GDK_SCALE", "1")
 env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 env("XCURSOR_THEME", "GitS-Cursors")
 env("XCURSOR_SIZE", "22")
-env("XDG_MENU_PREFIX", "plasma-")
+env("XDG_MENU_PREFIX", "arch-")
 env("GITS_WIDGETS_GLITCH", "0")
 -- plus the Flatpak launchers (com.spotify.Client, ...): the system ones are usually there already, the per-user ones (flatpak --user) are not
 local path = home .. "/.local/bin:" .. (os.getenv("PATH") or "/usr/local/bin:/usr/bin")

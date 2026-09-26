@@ -83,8 +83,6 @@ local function frame_items()
 end
 
 return {
-  { "LazyVim/LazyVim", opts = { colorscheme = "gits" } },
-
   {
     "folke/snacks.nvim",
     opts = function(_, opts)

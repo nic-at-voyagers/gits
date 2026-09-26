@@ -97,7 +97,6 @@ def get_bt():
 def get_dnd():
     return sh(["dunstctl", "is-paused"]) == "true"
 
-
 def get_warp_status():  
     s = sh(["warp-cli", "status"])  
     return "Connected" in s and "Disconnected" not in s
